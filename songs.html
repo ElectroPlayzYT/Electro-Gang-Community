@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF=8">
+<META NAME="VIEWPORT" CONTENT="width=device-width, initial-scale=1.0">
+<meta name="description" content="Electro Gang Community - Minecraft texture packs, gaming videos, mod downloads, news and fan discussions.">
+<meta name="keywords" content="Electro Gang, Minecraft episodes, Leaderboard, fan community">
+<meta name="author" content="Electro Playz">
+<title> Electro Gang Community </title>
+
+<meta property="og:title" content="Electro Gang Community">
+<meta property="og:description" content="Join Electro Gang Community for Minecraft mod packs, maps, videos, help center, leaderboard, online games and more!">
+<meta property="og:image" content="https://ElectroGangCommunity.com/thumbnail001.jpg">
+<meta property="og:URL" content="ElectroGangCommunity.net">
+<meta property="og:type" content="website">
+
+<style>
+
+body {
+  background-image: url('bg.jpeg'); /* Replace with your image path */
+  background-repeat: no-repeat; /* Prevent repeating the image */
+  background-size: cover;      /* Cover the entire background area */
+  background-position: center; /* Center the image */
+}
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    /* Top bar */
+    .topbar {
+      background: #000;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .hamburger {
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    .sitename {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .menu {
+      display: none;
+      position: absolute;
+      top: 50px;
+      left: 10px;
+      background: #1e1e1e;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      min-width: 200px;
+      overflow: hidden;
+      z-index: 999;
+    }
+
+    .menu a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: #e0e0e0;
+    }
+
+    .menu a:hover {
+      background: #0072ff;
+      color: #fff;
+    }
+
+ .btn {
+      background: linear-gradient(45deg, #00c6ff, #0072ff); /* gradient color */
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 30px;  /* rounded corners */
+      cursor: pointer;
+      transition: all 0.3s ease; /* smooth hover effect */
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: linear-gradient(45deg, #0072ff, #00c6ff);
+      transform: scale(1.05); /* makes it pop */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+	
+	  /* Footer */
+    .footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      background: #000;
+      margin-top: 40px;
+    }
+	
+	.card {
+      width: 500px;         /* Card width */
+      height: 420px;        /* Card height */
+      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Background color/gradient */
+      border-radius: 20px;  /* Rounded corners */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* Shadow effect */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    /* Hover effect */
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    }
+	
+	.card {
+      width: 500px;         /* Card width */
+      height: 420px;        /* Card height */
+      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Background color/gradient */
+      border-radius: 20px;  /* Rounded corners */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* Shadow effect */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    /* Hover effect */
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    }
+	
+	
+	 /* Songs Section */
+    .songs-section {
+      padding: 40px 5%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .song-card {
+      background: rgba(0, 0, 0, 0.75);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .song-card:hover {
+      transform: scale(1.05);
+    }
+
+    .song-cover {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .song-info {
+      padding: 15px;
+    }
+
+    .song-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px 0 5px;
+    }
+
+    .song-artist {
+      font-size: 14px;
+      color: #aaa;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      background: linear-gradient(45deg, #00c6ff, #0072ff);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(45deg, #0072ff, #00c6ff);
+      transform: scale(1.05);
+    }
+
+    /* Audio player */
+    audio {
+      width: 100%;
+      margin-top: 10px;
+      outline: none;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      background: #000;
+      margin-top: 40px;
+    }
+  </style>
+
+  <script>
+    function toggleMenu() {
+      let menu = document.getElementById("menu");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    let currentAudio = null;
+
+    function playSong(id) {
+      const audio = document.getElementById(id);
+
+      // Pause currently playing audio if any
+      if (currentAudio && currentAudio !== audio) {
+        currentAudio.pause();
+      }
+
+      // Toggle play/pause
+      if (audio.paused) {
+        audio.play();
+        currentAudio = audio;
+      } else {
+        audio.pause();
+      }
+    }
+  </script>
+</head>
+<body>
+ <!-- Top bar -->
+  <div class="topbar">
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="sitename">Electro Gang Community ®</div>
+  </div>
+
+  <!-- Hamburger dropdown -->
+  <div class="menu" id="menu">
+    <a href="index.html">Home</a>
+    <a href="login.html">Sign Up / Log In</a>
+    <a href="profile.html">Profile</a>
+    <a href="exclusive.html">Exclusive Content</a>
+    <a href="games.html">Games</a>
+    <a href="songs.html">Songs</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="pro.html">Get Pro!🔥</a>
+  </div>
+
+  <!-- Songs Section -->
+  <section class="songs-section">
+    <div class="song-card">
+      <img src="photo-output.jpeg" alt="Song 1" class="song-cover">
+      <div class="song-info">
+        <div class="song-title">Electro Gang Da Minecraft Kamal</div>
+        <div class="song-artist">By Anpregh</div>
+        <button class="btn" onclick="playSong('audio1')">Play / Pause</button>
+        <audio id="audio1" src="electrogangkamal.mp3" controls></audio>
+      </div>
+    </div>
+
+    <div class="song-card">
+      <img src="egeg.png" alt="Song 2" class="song-cover">
+      <div class="song-info">
+        <div class="song-title">Electro Gang</div>
+        <div class="song-artist">By Electro Playz</div>
+        <button class="btn" onclick="playSong('audio2')">Play / Pause</button>
+        <audio id="audio2" src="egsong.mp4" controls></audio>
+      </div>
+    </div>
+
+    <div class="song-card">
+      <img src="legends.png" alt="Song 3" class="song-cover">
+      <div class="song-info">
+        <div class="song-title">The Legends</div>
+        <div class="song-artist">By Electro Playz</div>
+        <button class="btn" onclick="playSong('audio3')">Play / Pause</button>
+        <audio id="audio3" src="legends.mov" controls></audio>
+      </div>
+    </div>
+
+   <br><br><br>
+  <!-- Footer -->
+  <div class="footer">
+    © 2025 Electro Gang Community. All rights reserved.
+  </div>
+
+</body>
+</html>
