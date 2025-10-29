@@ -1,63 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Profile — Electro Gang Community</title>
-  <style>
-    :root{ --accent1:#00c6ff; --accent2:#0072ff; --card-bg:rgba(0,0,0,0.72); --text:#e8f6ff; }
-    body{
-      margin:0;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family:Arial, sans-serif;
-      background: url('bg.jpeg') center/cover no-repeat fixed;
-      color:var(--text);
-    }
-    .card{
-      width:360px;
-      border-radius:14px;
-      background:var(--card-bg);
-      padding:26px;
-      text-align:center;
-      box-shadow:0 10px 30px rgba(2,6,23,0.6);
-    }
-    h1{ margin:0 0 6px; font-size:20px; }
-    p{ margin:6px 0 14px; color:#bcd8ee; }
-    .btn{
-      width:80%;
-      margin:8px auto;
-      padding:10px;
-      border-radius:12px;
-      border:none;
-      font-weight:700;
-      cursor:pointer;
-      color:#00131a;
-      background:linear-gradient(135deg,var(--accent1),var(--accent2));
-    }
-    .small{ font-size:12px; color:#9fb2c8; margin-top:10px; }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Profile — Electro Gang Community</title>
+<style>
+  body {
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Arial, sans-serif;
+    background: url('bg.jpeg') center/cover no-repeat fixed;
+    color:#e8f6ff;
+  }
+  .card{
+    width:360px;
+    border-radius:12px;
+    padding:24px;
+    background:rgba(0,0,0,0.72);
+    text-align:center;
+    box-shadow:0 8px 30px rgba(0,0,0,0.6);
+  }
+  h1{ margin:0 0 8px; font-size:20px; }
+  .xp { color:#00c6ff; font-weight:700; margin-bottom:10px; }
+  button {
+    width:80%;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    margin:8px 0;
+    cursor:pointer;
+    font-weight:700;
+    color:#00131a;
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+  }
+  button.secondary {
+    background:transparent;
+    color:#cfe8ff;
+    border:1px solid rgba(255,255,255,0.06);
+  }
+  .small { font-size:12px; color:#9fb2c8; margin-top:10px; }
+</style>
 </head>
 <body>
   <div class="card">
-    <h1 id="name">—</h1>
-    <p>Your XP: <strong id="xp">0</strong></p>
+    <h1 id="name">Loading...</h1>
+    <div class="xp">XP: <span id="xp">0</span></div>
 
-    <!-- Earn XP button and Leaderboard button -->
-    
-   <a href="leaderboard.html"> <button class="btn" id="leaderBtn">Open Leaderboard</button></a>
+  
+   <a href="leaderboard.html"> <button id="leaderBtn">Open Leaderboard</button></a>
+    <button id="logoutBtn" class="secondary">Log out</button>
 
-    <button style="margin-top:12px; background:transparent; color:#cfe8ff; border:none; cursor:pointer;" id="logoutBtn">Log out</button>
-
-    <div class="small">Password is stored locally on this device so you don't need to sign in again here.</div>
+    <div class="small">Password stored locally on this device only.</div>
+    <div class="small" style="margin-top:6px;" id="debug"></div>
   </div>
 
   <script type="module">
+    // robust profile that logs issues to console and on-page debug area
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+    import { getDatabase, ref, get, update, set } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
+    // --- CONFIG: make sure databaseURL is correct for YOUR project
     const firebaseConfig = {
       apiKey: "AIzaSyAblev6Eozr521krNg5sRt-GLng0Pt1dRo",
       authDomain: "electro-playz-community.firebaseapp.com",
@@ -68,16 +73,31 @@
       appId: "1:630817725431:web:05f83dbd2684f5c7a3ecf2"
     };
 
-    const app = initializeApp(firebaseConfig);
+    const debugEl = document.getElementById('debug');
+    function logDebug(msg){
+      console.log('[PROFILE] ', msg);
+      debugEl.textContent = msg;
+    }
+
+    // Initialize Firebase
+    let app;
+    try {
+      app = initializeApp(firebaseConfig);
+      logDebug('Firebase initialized.');
+    } catch(e){
+      console.error(e);
+      logDebug('Firebase init failed - check config and network. See console.');
+      throw e;
+    }
+
     const db = getDatabase(app);
 
-    const user = localStorage.getItem('eg_user');
-    const pass = localStorage.getItem('eg_pass');
+    // IMPORTANT: use same keys as your login page. This code uses eg_user / eg_pass
+    const USER_KEY = 'eg_user';
+    const PASS_KEY = 'eg_pass';
 
-    if (!user || !pass) {
-      alert('Not signed in. Redirecting to login.');
-      location.href = 'login.html';
-    }
+    const user = localStorage.getItem(USER_KEY);
+    const pass = localStorage.getItem(PASS_KEY);
 
     const nameEl = document.getElementById('name');
     const xpEl = document.getElementById('xp');
@@ -85,53 +105,71 @@
     const leaderBtn = document.getElementById('leaderBtn');
     const logoutBtn = document.getElementById('logoutBtn');
 
+    if (!user || !pass) {
+      logDebug('Not signed in. Redirecting to login...');
+      alert('Not signed in. Redirecting to login.');
+      location.href = 'login.html';
+      throw new Error('Not signed in');
+    }
+
     nameEl.textContent = user;
 
-    // load XP from Firebase
-    async function loadXP(){
+    // ensure user exists in DB; if not create with xp 0 (safe create)
+    async function ensureUser() {
       try {
-        const snap = await get(ref(db, 'users/' + user));
-        if (snap.exists()){
-          xpEl.textContent = snap.val().xp || 0;
-        } else {
-          // if no user, create
-          await set(ref(db, 'users/' + user), { password: pass, xp: 0 });
+        const userRef = ref(db, 'users/' + user);
+        const snap = await get(userRef);
+        if (!snap.exists()) {
+          logDebug('User not found in DB, creating user record...');
+          await set(userRef, { password: pass, xp: 0 });
           xpEl.textContent = 0;
+        } else {
+          xpEl.textContent = snap.val().xp || 0;
+          logDebug('Loaded XP: ' + (snap.val().xp || 0));
         }
-      } catch(e){ console.error(e); alert('Network error'); }
+      } catch (e) {
+        console.error(e);
+        logDebug('Error reading DB. Check rules and network. See console.');
+      }
     }
 
-    // add +10 XP: update Firebase and update local display
-    async function addXP(){
+    // add XP (safe update)
+    async function addXP(amount=10) {
       try {
-        const r = ref(db, 'users/' + user);
-        const snap = await get(r);
-        let current = (snap.exists() && snap.val().xp) ? Number(snap.val().xp) : 0;
-        current += 10;
-        // write back (keep password intact)
-        await set(r, { password: pass, xp: current });
+        const userRef = ref(db, 'users/' + user);
+        const snap = await get(userRef);
+        let current = 0;
+        if (snap.exists()) current = Number(snap.val().xp || 0);
+        current += amount;
+        // use update to keep other fields intact
+        await update(userRef, { xp: current });
         xpEl.textContent = current;
-      } catch(e){ console.error(e); alert('Could not update XP'); }
+        logDebug('XP updated to ' + current);
+      } catch (e) {
+        console.error(e);
+        logDebug('Failed to update XP. See console.');
+        alert('Could not update XP — check console and Firebase rules.');
+      }
     }
 
-    earnBtn.addEventListener('click', addXP);
-
-    // When opening leaderboard from profile, give +10 XP then redirect
+    earnBtn.addEventListener('click', () => addXP(10));
     leaderBtn.addEventListener('click', async () => {
-      await addXP();          // award +10 XP
-      // unlock leaderboard on this device if not already (optional: user must still enter password)
-      // redirect
+      await addXP(10);               // award XP first
       location.href = 'leaderboard.html';
     });
-
     logoutBtn.addEventListener('click', () => {
-      localStorage.removeItem('eg_user');
-      localStorage.removeItem('eg_pass');
-      alert('Logged out');
+      localStorage.removeItem(USER_KEY);
+      localStorage.removeItem(PASS_KEY);
       location.href = 'login.html';
     });
 
-    loadXP();
+    // On load
+    (async function init(){
+      logDebug('Checking user record in database...');
+      await ensureUser();
+      // also show a console hint
+      console.log('%cProfile initialized. If XP updates fail, check Firebase rules and console errors.', 'color: #00c6ff; font-weight: 700;');
+    })();
   </script>
 </body>
 </html>
