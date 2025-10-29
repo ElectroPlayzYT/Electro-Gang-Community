@@ -1,242 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leaderboard — Electro Gang Community</title>
-  <style>
-    :root{
-      --bg:#0f1114; --card:#131617; --accent1:#0072ff; --accent2:#00c6ff;
-      --muted:#a9b4c2; --white:#eef6ff; --radius:12px;
-    }
-    body{margin:0; font-family:Arial,sans-serif; background:var(--bg); color:var(--white);}
-    .wrap{padding:28px; max-width:800px; margin:auto;}
-    h1{text-align:center; margin-bottom:22px;}
-    .card{background:var(--card); border-radius:var(--radius);
-      padding:18px; margin-bottom:12px;
-      display:flex; justify-content:space-between; align-items:center;
-      box-shadow:0 10px 22px rgba(0,0,0,0.5);}
-    .username{font-weight:600;}
-    .xp{color:var(--accent2); font-weight:700;}
-    .footer{text-align:center; margin-top:30px; font-size:13px; color:var(--muted);}
-    .btn{background:linear-gradient(135deg,var(--accent1),var(--accent2));
-      color:white; border:none; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700;
-      box-shadow:0 6px 14px rgba(0,114,255,0.15);}
-    .btn:hover{opacity:0.9;}
-    .gate{max-width:400px; margin:80px auto; text-align:center;}
-    .input{padding:10px; border-radius:8px; border:none; width:70%; margin-bottom:14px;}
- 
 
- </style>
- 
- <meta charset="UTF=8">
-<META NAME="VIEWPORT" CONTENT="width=device-width, initial-scale=1.0">
-<meta name="description" content="Electro Gang Community - Minecraft texture packs, gaming videos, mod downloads, news and fan discussions.">
-<meta name="keywords" content="Electro Gang, Minecraft episodes, Leaderboard, fan community">
-<meta name="author" content="Electro Playz">
-<title> Electro Gang Community </title>
+<!-- Firebase SDKs -->
+<script type="module">
+  // Import Firebase SDKs directly from CDN
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
 
-<meta property="og:title" content="Electro Gang Community">
-<meta property="og:description" content="Join Electro Gang Community for Minecraft mod packs, maps, videos, help center, leaderboard, online games and more!">
-<meta property="og:image" content="https://ElectroGangCommunity.com/thumbnail001.jpg">
-<meta property="og:URL" content="ElectroGangCommunity.net">
-<meta property="og:type" content="website">
+  // Your Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAblev6Eozr521krNg5sRt-GLng0Pt1dRo",
+    authDomain: "electro-playz-community.firebaseapp.com",
+    projectId: "electro-playz-community",
+    storageBucket: "electro-playz-community.firebasestorage.app",
+    messagingSenderId: "630817725431",
+    appId: "1:630817725431:web:05f83dbd2684f5c7a3ecf2",
+    measurementId: "G-90WPKQKLD7",
+    databaseURL: "
+https://electro-playz-community-default-rtdb.firebaseio.com/
+"
+  };
 
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  window.db = db; // Make it global so other scripts can use it
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leaderboard — Electro Gang Community</title>
 <style>
-
-body {
-  background-image: url('bg.jpeg'); /* Replace with your image path */
-  background-repeat: no-repeat; /* Prevent repeating the image */
-  background-size: cover;      /* Cover the entire background area */
-  background-position: center; /* Center the image */
+:root{
+  --bg:#0f1114; --card:#131617; --accent1:#0072ff; --accent2:#00c6ff;
+  --muted:#a9b4c2; --white:#eef6ff; --radius:12px;
 }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: #e0e0e0;
-    }
-
-    /* Top bar */
-    .topbar {
-      background: #000;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      padding: 10px 15px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .hamburger {
-      font-size: 24px;
-      cursor: pointer;
-      margin-right: 15px;
-    }
-
-    .sitename {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .menu {
-      display: none;
-      position: absolute;
-      top: 50px;
-      left: 10px;
-      background: #1e1e1e;
-      border-radius: 6px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-      min-width: 200px;
-      overflow: hidden;
-      z-index: 999;
-    }
-
-    .menu a {
-      display: block;
-      padding: 10px;
-      text-decoration: none;
-      color: #e0e0e0;
-    }
-
-    .menu a:hover {
-      background: #0072ff;
-      color: #fff;
-    }
-
- .btn {
-      background: linear-gradient(45deg, #00c6ff, #0072ff); /* gradient color */
-      border: none;
-      color: white;
-      padding: 12px 25px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      border-radius: 30px;  /* rounded corners */
-      cursor: pointer;
-      transition: all 0.3s ease; /* smooth hover effect */
-      font-weight: bold;
-    }
-
-    .btn:hover {
-      background: linear-gradient(45deg, #0072ff, #00c6ff);
-      transform: scale(1.05); /* makes it pop */
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-	
-	  /* Footer */
-    .footer {
-      text-align: center;
-      padding: 15px;
-      font-size: 14px;
-      background: #000;
-      margin-top: 40px;
-    }
-	
-	</style>
-	
-	 <script>
-    function toggleMenu() {
-      let menu = document.getElementById("menu");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-    }
-  </script>
-  
-	</head>
-	
-	<body>
-	
-	 <!-- Top bar -->
-  <div class="topbar">
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
-    <div class="sitename">Electro Gang Community ®</div>
-  </div>
-
-  <!-- Hamburger dropdown -->
-  <div class="menu" id="menu">
-  <a href="index.html">Home</a>
-    <a href="login.html">Sign Up / Log In</a>
-    <a href="profile.html">Profile</a>
-    <a href="exclusive.html">Exclusive Content</a>
-    <a href="games.html">Games</a>
-    <a href="songs.html">Songs</a>
-    <a href="leaderboard.html">Leaderboard</a>
-	<a href="pro.html">Get Pro!🔥</a>
-  </div>
-  
-  
-  
-
-  <div class="wrap" id="leaderboardWrap">
-  <h1><center>This leaderboard is protected by a system of Password. In order to join leaderboard, you must get permission from Electro Payz.</center></h1>
-    <!-- password gate will load here -->
-  </div><br><br><br><br>
-  	   
-		    <!-- Footer -->
-  <
-
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--white);
+  background-image:url('bg.jpeg');background-size:cover;background-position:center;}
+.wrap{padding:28px;max-width:800px;margin:auto;}
+h1{text-align:center;margin-bottom:22px;}
+.card{background:var(--card);border-radius:var(--radius);padding:18px;margin-bottom:12px;
+display:flex;justify-content:space-between;align-items:center;box-shadow:0 10px 22px rgba(0,0,0,0.5);}
+.username{font-weight:600;}
+.xp{color:var(--accent2);font-weight:700;}
+.footer{text-align:center;margin-top:30px;font-size:13px;color:var(--muted);}
+.btn{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:white;
+border:none;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:700;
+box-shadow:0 6px 14px rgba(0,114,255,0.15);}
+.btn:hover{opacity:0.9;}
+.gate{max-width:400px;margin:80px auto;text-align:center;}
+.input{padding:10px;border-radius:8px;border:none;width:70%;margin-bottom:14px;}
+.topbar{background:#000;color:#fff;display:flex;align-items:center;padding:10px 15px;position:sticky;top:0;z-index:1000;}
+.hamburger{font-size:24px;cursor:pointer;margin-right:15px;}
+.sitename{font-weight:bold;}
+.menu{display:none;position:absolute;top:50px;left:10px;background:#1e1e1e;
+border-radius:6px;box-shadow:0 4px 8px rgba(0,0,0,0.5);min-width:200px;overflow:hidden;z-index:999;}
+.menu a{display:block;padding:10px;text-decoration:none;color:#e0e0e0;}
+.menu a:hover{background:#0072ff;color:#fff;}
+</style>
 <script>
-const USERS_KEY = "eg_users";
-const LEADERBOARD_PASS = "xgehsdfur"; // 🔑 Change this password
-
+const USERS_KEY="eg_users";
+const LEADERBOARD_PASS="xgehsdfur";
+function toggleMenu(){
+  const menu=document.getElementById("menu");
+  menu.style.display=menu.style.display==="block"?"none":"block";
+}
 function loadUsers(){
-  try { return JSON.parse(localStorage.getItem(USERS_KEY) || "{}"); } catch(e){ return {}; }
+  try{return JSON.parse(localStorage.getItem(USERS_KEY)||"{}");}catch(e){return {};}
 }
-
 function renderGate(){
-  document.getElementById("leaderboardWrap").innerHTML = `
-    <div class="gate">
-	 <h2>This leaderboard is protected by a system of Password. In order to join leaderboard, you must get permission from Electro Payz.</h2><br><br>
-      <h2>Enter Leaderboard Password</h2>
-      <input type="password" id="passInput" class="input" placeholder="Password" />
-      <br>
-      <button class="btn" onclick="checkPass()">Unlock</button>
-    </div>
-  `;
+  const saved=localStorage.getItem("leaderboardAccess");
+  if(saved==="granted"){renderLeaderboard();return;}
+  document.getElementById("leaderboardWrap").innerHTML=`
+  <div class="gate">
+  <h2>This leaderboard is protected by a system of Password. In order to join leaderboard, you must get permission from Electro Playz.</h2><br><br>
+  <h3>Enter Leaderboard Password</h3>
+  <input type="password" id="passInput" class="input" placeholder="Password"><br>
+  <button class="btn" onclick="checkPass()">Unlock</button>
+  </div>`;
 }
-
 function checkPass(){
-  const val = document.getElementById("passInput").value.trim();
-  if(val === LEADERBOARD_PASS){
+  const val=document.getElementById("passInput").value.trim();
+  if(val===LEADERBOARD_PASS){
+    localStorage.setItem("leaderboardAccess","granted");
     renderLeaderboard();
-  } else {
-    alert("Incorrect password!");
-  }
+  } else alert("Incorrect password!");
 }
-
 function renderLeaderboard(){
-  const users = loadUsers();
-  const arr = Object.keys(users).map(u => ({ user:u, xp:Number(users[u].xp)||0 }));
-  arr.sort((a,b)=> b.xp - a.xp);
-
-  let html = `<h1>Leaderboard</h1>
+  const users=loadUsers();
+  const arr=Object.keys(users).map(u=>({user:u,xp:Number(users[u].xp)||0}));
+  arr.sort((a,b)=>b.xp-a.xp);
+  let html=`<h1>Leaderboard</h1>
   <br><br><h3><center>IMPORTANT NOTE : At every weekend, the user at the position #1 is freely invited to join Electro Gang! The more you explore our website, the more xp you can have!</center></h3>`;
-  
-  if(arr.length === 0){
-    html += `<p>No registered users yet.</p>`;
-  } else {
+  if(arr.length===0){
+    html+=`<p>No registered users yet.</p>`;
+  }else{
     arr.forEach((entry,i)=>{
-      html += `
-        <div class="card">
-          <div class="username">#${i+1} — ${escapeHtml(entry.user)}</div>
-          <div class="xp">${entry.xp} XP</div>
-        </div>
-      `;
+      html+=`<div class="card"><div class="username">#${i+1} — ${entry.user}</div><div class="xp">${entry.xp} XP</div></div>`;
     });
   }
-  html += `<div class="footer">© Electro Gang Community. All rights reserved.</div>`;
-  document.getElementById("leaderboardWrap").innerHTML = html;
+  html+=`<div class="footer">© Electro Gang Community. All rights reserved.</div>`;
+  document.getElementById("leaderboardWrap").innerHTML=html;
 }
-
-function escapeHtml(s){ 
-  return (s+"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); 
-}
-
-// show password gate immediately
-renderGate();
+window.onload=renderGate;
 </script>
+</head>
+<body>
+<div class="topbar">
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <div class="sitename">Electro Gang Community ®</div>
+</div>
+<div class="menu" id="menu">
+  <a href="index.html">Home</a>
+  <a href="login.html">Sign Up / Log In</a>
+  <a href="profile.html">Profile</a>
+  <a href="exclusive.html">Exclusive Content</a>
+  <a href="games.html">Games</a>
+  <a href="songs.html">Songs</a>
+  <a href="leaderboard.html">Leaderboard</a>
+</div>
+
+<div class="wrap" id="leaderboardWrap"></div>
 </body>
 </html>

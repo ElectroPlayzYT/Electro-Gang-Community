@@ -1,118 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Profile — Electro Gang Community</title>
-  <style>
-    :root{
-      --bg:#0f1114; --card:#131617; --accent1:#0072ff; --accent2:#00c6ff; --muted:#a9b4c2; --white:#eef6ff; --radius:12px;
-    }
-    html,body{height:100%; margin:0; font-family: Arial, sans-serif; background:var(--bg); color:var(--white);}
-    .wrap{min-height:100%; display:flex; align-items:center; justify-content:center; padding:28px;}
-    .card{ width:420px; max-width:94vw; border-radius:12px; background:linear-gradient(180deg,var(--card), #0f1316);
-      box-shadow:0 14px 46px rgba(2,6,23,0.7); padding:22px; text-align:center;
-    }
-    h2{ margin:6px 0 8px 0; font-size:20px;}
-    .muted{ color:var(--muted); font-size:14px; margin-bottom:10px; }
-    .xp{ font-size:18px; font-weight:600; margin:12px 0; color:var(--white); }
-    .btn{
-      background: linear-gradient(135deg,var(--accent1),var(--accent2));
-      color:white; border:none; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700;
-      box-shadow:0 8px 20px rgba(0,114,255,0.14); transition: transform .14s ease;
-    }
-    .btn:hover{ transform:translateY(-3px); }
-    .link-btn{ background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--white); padding:9px 12px; border-radius:10px; cursor:pointer; }
-    .footer{ margin-top:18px; font-size:13px; color:var(--muted); }
-    .row{ display:flex; gap:10px; justify-content:center; margin-top:12px; flex-wrap:wrap;}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="card" role="main" id="profileCard">
-      <!-- content populated by JS -->
-    </div>
-  </div>
 
+<!-- Firebase SDKs -->
+<script type="module">
+  // Import Firebase SDKs directly from CDN
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+  // Your Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAblev6Eozr521krNg5sRt-GLng0Pt1dRo",
+    authDomain: "electro-playz-community.firebaseapp.com",
+    projectId: "electro-playz-community",
+    storageBucket: "electro-playz-community.firebasestorage.app",
+    messagingSenderId: "630817725431",
+    appId: "1:630817725431:web:05f83dbd2684f5c7a3ecf2",
+    measurementId: "G-90WPKQKLD7",
+    databaseURL: "
+https://electro-playz-community-default-rtdb.firebaseio.com/
+"
+  };
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile — Electro Gang Community</title>
+<style>
+:root{
+  --bg:#0f1114; --card:#131617; --accent1:#0072ff; --accent2:#00c6ff;
+  --white:#eef6ff; --radius:12px;
+}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--white);
+  background-image:url('bg.jpeg');
+  background-size:cover;
+  background-position:center;
+}
+.wrap{max-width:500px;margin:100px auto;text-align:center;}
+.card{background:var(--card);padding:20px;border-radius:var(--radius);}
+.btn{
+  background:linear-gradient(45deg,var(--accent1),var(--accent2));
+  border:none;color:white;padding:10px 20px;margin:8px;
+  border-radius:var(--radius);cursor:pointer;font-weight:700;transition:0.3s;
+}
+.btn:hover{opacity:0.9;}
+.footer{text-align:center;margin-top:40px;font-size:13px;color:#a9b4c2;}
+.topbar{background:#000;color:#fff;display:flex;align-items:center;
+  padding:10px 15px;position:sticky;top:0;z-index:1000;}
+.hamburger{font-size:24px;cursor:pointer;margin-right:15px;}
+.sitename{font-weight:bold;}
+.menu{display:none;position:absolute;top:50px;left:10px;background:#1e1e1e;
+  border-radius:6px;box-shadow:0 4px 8px rgba(0,0,0,0.5);
+  min-width:200px;overflow:hidden;z-index:999;}
+.menu a{display:block;padding:10px;text-decoration:none;color:#e0e0e0;}
+.menu a:hover{background:#0072ff;color:#fff;}
+</style>
 <script>
-const USERS_KEY = "eg_users";
-const CURRENT_KEY = "eg_currentUser";
-
-/* Storage helpers */
-function loadUsers(){
-  try { return JSON.parse(localStorage.getItem(USERS_KEY) || "{}"); } catch(e){ return {}; }
+function toggleMenu(){
+  const menu=document.getElementById('menu');
+  menu.style.display=menu.style.display==='block'?'none':'block';
 }
-function saveUsers(obj){ localStorage.setItem(USERS_KEY, JSON.stringify(obj)); }
-function getCurrentUser(){ return localStorage.getItem(CURRENT_KEY) || null; }
-function setCurrentUser(u){ if(u) localStorage.setItem(CURRENT_KEY, u); else localStorage.removeItem(CURRENT_KEY); }
-
-/* addXP (silent) */
-function addXP(amount = 10){
-  const cur = getCurrentUser();
-  if(!cur) return false;
-  const users = loadUsers();
-  if(!users[cur]) users[cur] = { password: "", xp: 0 };
-  users[cur].xp = (Number(users[cur].xp) || 0) + Number(amount);
-  saveUsers(users);
-  renderProfile(); // update UI silently
-  return true;
+function loadProfile(){
+  const current=localStorage.getItem('eg_current');
+  if(!current){alert('Please log in first!');window.location='login.html';return;}
+  const users=JSON.parse(localStorage.getItem('eg_users')||'{}');
+  const xp=users[current]?.xp||0;
+  document.getElementById('username').innerText=current;
+  document.getElementById('xp').innerText=xp;
 }
-
-/* logout */
 function logout(){
-  setCurrentUser(null);
-  renderProfile();
+  localStorage.removeItem('eg_current');
+  alert('Logged out!');
+  window.location='login.html';
 }
-
-/* render profile UI depending on login state */
-function renderProfile(){
-  const container = document.getElementById("profileCard");
-  const cur = getCurrentUser();
-  const users = loadUsers();
-
-  if(cur && users[cur]){
-    const xp = Number(users[cur].xp || 0);
-    container.innerHTML = `
-      <h2>Welcome, ${escapeHtml(cur)}!</h2>
-      <div class="muted">Your Electro Gang profile</div>
-      <div class="xp">Total XP: ${xp}</div>
-      <div class="row">
-        <button class="btn" onclick="addXP(); window.location.href='leaderboard.html'">View Leaderboard</button>
-        <button class="btn" onclick="addXP(); window.location.href='index.html'">Home</button>
-      </div>
-      <div class="row">
-        <button class="btn" onclick="addXP(); logout()">Log Out</button>
-      </div>
-      <div class="footer">© Electro Gang Community. All rights reserved.</div>
-    `;
-  } else {
-    container.innerHTML = `
-      <h2>Not signed in</h2>
-      <div class="muted">You are not logged in. Create an account or sign in to view your profile and earn XP.</div>
-      <div class="row">
-        <button class="btn" onclick="window.location.href='login.html'">Sign Up / Log In</button>
-        <button class="btn" onclick="window.location.href='index.html'">Home</button>
-      </div>
-      <div class="footer">© Electro Gang Community. All rights reserved.</div>
-    `;
-  }
+function addXP(){
+  const current=localStorage.getItem('eg_current');
+  if(!current)return;
+  let users=JSON.parse(localStorage.getItem('eg_users')||'{}');
+  users[current].xp=(users[current].xp||0)+10;
+  localStorage.setItem('eg_users',JSON.stringify(users));
+  document.getElementById('xp').innerText=users[current].xp;
 }
-
-/* escape */
-function escapeHtml(s){ return (s+"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
-
-/* init */
-(function init(){
-  const cur = getCurrentUser();
-  if(cur){
-    const users = loadUsers();
-    if(!users[cur]){
-      users[cur] = { password: "", xp: 0 };
-      saveUsers(users);
-    }
-  }
-  renderProfile();
-})();
 </script>
+</head>
+<body onload="loadProfile()">
+<div class="topbar">
+  <div class="hamburger" onclick="toggleMenu();addXP()">☰</div>
+  <div class="sitename">Electro Gang Community ®</div>
+</div>
+<div class="menu" id="menu">
+  <a href="index.html">Home</a>
+  <a href="login.html">Sign Up / Log In</a>
+  <a href="profile.html">Profile</a>
+  <a href="exclusive.html">Exclusive Content</a>
+  <a href="games.html">Games</a>
+  <a href="songs.html">Songs</a>
+  <a href="leaderboard.html">Leaderboard</a>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <h2 id="username"></h2>
+    <p>Total XP: <span id="xp">0</span></p>
+    <button class="btn" onclick="addXP()">Explore +10 XP</button>
+    <button class="btn" onclick="logout()">Log Out</button>
+  </div>
+</div>
+<div class="footer">© Electro Gang Community. All rights reserved.</div>
 </body>
 </html>
