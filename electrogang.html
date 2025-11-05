@@ -2,45 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta charset="UTF=8">
-<META NAME="VIEWPORT" CONTENT="width=device-width, initial-scale=1.0">
-<meta name="description" content="Electro Gang Community - Minecraft texture packs, gaming videos, mod downloads, news and fan discussions.">
-<meta name="keywords" content="Electro Gang, Minecraft episodes, Leaderboard, fan community">
-<meta name="author" content="Electro Playz">
-<title> Electro Gang Community </title>
-
-<meta property="og:title" content="Electro Gang Community">
-<meta property="og:description" content="Join Electro Gang Community for Minecraft mod packs, maps, videos, help center, leaderboard, online games and more!">
-<meta property="og:image" content="https://ElectroGangCommunity.com/thumbnail001.jpg">
-<meta property="og:URL" content="ElectroGangCommunity.net">
-<meta property="og:type" content="website">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Electro Gang - The Series</title>
+  <title>Electro Gang: The Series</title>
+  <meta name="description" content="Watch Electro Gang - The Minecraft Movie Series.">
   <style>
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #0f0f0f;
+      background-color: #000;
       color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       background-image: url('bg.jpeg');
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .container {
       display: flex;
       flex-direction: row;
       background: rgba(0, 0, 0, 0.85);
-      border-radius: 20px;
+      border-radius: 16px;
       overflow: hidden;
       width: 90%;
-      max-width: 1100px;
+      max-width: 1000px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
     }
 
@@ -57,17 +44,17 @@
     }
 
     h1 {
-      font-size: 2.5em;
+      font-size: 2.4em;
       margin-bottom: 20px;
+      color: #e50914;
     }
 
     .btn {
-      background: linear-gradient(45deg, #00c6ff, #0072ff);
+      background: linear-gradient(45deg, #e50914, #b81d24);
       border: none;
       color: white;
       padding: 12px 25px;
       text-align: center;
-      text-decoration: none;
       font-size: 16px;
       border-radius: 30px;
       cursor: pointer;
@@ -77,9 +64,19 @@
     }
 
     .btn:hover {
-      background: linear-gradient(45deg, #0072ff, #00c6ff);
       transform: scale(1.05);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    select {
+      background: #1e1e1e;
+      color: white;
+      border: 1px solid #e50914;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 14px;
+      margin-top: 15px;
+      width: 100%;
     }
 
     .rating {
@@ -101,60 +98,21 @@
       color: gold;
     }
 
-    .video-player {
-      display: none;
-      margin-top: 20px;
-    }
-
-    video {
-      width: 100%;
-      border-radius: 12px;
-      outline: none;
-    }
-
-    .controls {
-      display: flex;
-      justify-content: center;
-      margin-top: 10px;
-      gap: 15px;
-    }
-
-    .controls button {
-      background: #0072ff;
-      border: none;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .controls button:hover {
-      background: #00c6ff;
-    }
-
-    select {
-      background: #1e1e1e;
-      color: white;
-      border: 1px solid #0072ff;
-      border-radius: 6px;
-      padding: 8px;
-      font-size: 14px;
-      margin-top: 15px;
+    @media (max-width: 800px) {
+      .container { flex-direction: column; }
+      .poster { height: 300px; }
     }
   </style>
 </head>
 <body>
-
   <div class="container">
     <div class="details">
       <h1>Electro Gang : Season 1</h1>
-      <p>Finally, the wait is over, ultimate thriller is here, and Electro Gang faces a lot of puzzles and challenges. Watch to find out how it all started.</p>
+      <p>Finally, the wait is over, Electro Gang faces mysterious puzzles while Electro is stuck in a prison, Watch to find out how it began..</p>
 
       <select id="episodeSelector">
-        <option value="video.mp4">Episode 1 - A hidden trap</option>
-        <option value="episode2.mp4">Episode 2 - A smoke bomb</option>
-     
+        <option value="https://youtu.be/Tj0f9baZE80?si=fDBA9tySINrm8ekt">Episode 1 — The Hidden Trap</option>
+        <option value="https://youtu.be/knl_CZYdueQ?si=a1d1aA_6WmOzy4EY">Episode 2 — The Smoke Bomb</option>
       </select>
 
       <button class="btn" onclick="playEpisode()">Play</button>
@@ -167,47 +125,19 @@
         <input type="radio" name="star" id="star2"><label for="star2">★</label>
         <input type="radio" name="star" id="star1"><label for="star1">★</label>
       </div>
-
-      <div class="video-player" id="playerSection">
-        <video id="video" src="" controls></video>
-        <div class="controls">
-          <button onclick="rewind10()">Rewind 10s</button>
-          <button onclick="togglePlay()">Play / Pause</button>
-          <button onclick="forward10()">Forward 10s</button>
-        </div>
-      </div>
     </div>
 
     <div class="poster" style="background-image: url('iii.jpg');"></div>
   </div>
 
   <script>
-    const video = document.getElementById("video");
-    const playerSection = document.getElementById("playerSection");
-
     function playEpisode() {
-      const episode = document.getElementById("episodeSelector").value;
-      video.src = episode;
-      playerSection.style.display = "block";
-      video.play();
-    }
-
-    function togglePlay() {
-      if (video.paused) {
-        video.play();
-      } else {
-        video.pause();
-      }
-    }
-
-    function rewind10() {
-      video.currentTime -= 10;
-    }
-
-    function forward10() {
-      video.currentTime += 10;
+      const url = document.getElementById("episodeSelector").value;
+      // Opens video in fullscreen mode in new tab
+      const newWin = window.open(url + "&autoplay=1", "_blank");
+      newWin.focus();
+      // YouTube handles fullscreen automatically on mobile devices
     }
   </script>
-
 </body>
 </html>

@@ -1,327 +1,181 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF=8">
-<META NAME="VIEWPORT" CONTENT="width=device-width, initial-scale=1.0">
-<meta name="description" content="Electro Gang Community - Minecraft texture packs, gaming videos, mod downloads, news and fan discussions.">
-<meta name="keywords" content="Electro Gang, Minecraft episodes, Leaderboard, fan community">
-<meta name="author" content="Electro Playz">
-<title> Electro Gang Community </title>
-
-<meta property="og:title" content="Electro Gang Community">
-<meta property="og:description" content="Join Electro Gang Community for Minecraft mod packs, maps, videos, help center, leaderboard, online games and more!">
-<meta property="og:image" content="https://ElectroGangCommunity.com/thumbnail001.jpg">
-<meta property="og:URL" content="ElectroGangCommunity.net">
-<meta property="og:type" content="website">
-
-<style>
-
-body {
-  background-image: url('bg.jpeg'); /* Replace with your image path */
-  background-repeat: no-repeat; /* Prevent repeating the image */
-  background-size: cover;      /* Cover the entire background area */
-  background-position: center; /* Center the image */
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exclusive Content | ElectroFlix</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: #e0e0e0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
     }
 
-    /* Top bar */
-    .topbar {
-      background: #000;
-      color: #fff;
+    header {
+      background-color: #141414;
+      padding: 20px 40px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      padding: 10px 15px;
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 100;
     }
 
-    .hamburger {
-      font-size: 24px;
-      cursor: pointer;
-      margin-right: 15px;
+    .logo {
+      color: #e50914;
+      font-weight: 700;
+      font-size: 1.8em;
+      letter-spacing: 1px;
     }
 
-    .sitename {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .menu {
-      display: none;
-      position: absolute;
-      top: 50px;
-      left: 10px;
-      background: #1e1e1e;
-      border-radius: 6px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-      min-width: 200px;
-      overflow: hidden;
-      z-index: 999;
-    }
-
-    .menu a {
-      display: block;
-      padding: 10px;
-      text-decoration: none;
-      color: #e0e0e0;
-    }
-
-    .menu a:hover {
-      background: #0072ff;
-      color: #fff;
-    }
-
- .btn {
-      background: linear-gradient(45deg, #00c6ff, #0072ff); /* gradient color */
-      border: none;
+    .nav-links a {
       color: white;
-      padding: 12px 25px;
-      text-align: center;
       text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      border-radius: 30px;  /* rounded corners */
-      cursor: pointer;
-      transition: all 0.3s ease; /* smooth hover effect */
-      font-weight: bold;
+      margin-left: 25px;
+      font-size: 1em;
+      transition: color 0.3s;
     }
 
-    .btn:hover {
-      background: linear-gradient(45deg, #0072ff, #00c6ff);
-      transform: scale(1.05); /* makes it pop */
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    .nav-links a:hover {
+      color: #e50914;
     }
-	
-	  /* Footer */
-    .footer {
+
+    .search-container {
       text-align: center;
-      padding: 15px;
-      font-size: 14px;
-      background: #000;
-      margin-top: 40px;
+      margin: 30px auto;
     }
-	body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #121212;
-    color: #fff;
-  }
 
-  /* Top Bar */
-  .topbar {
-    background: #000;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
+    .search-box {
+      width: 80%;
+      max-width: 500px;
+      padding: 10px 15px;
+      border-radius: 30px;
+      border: none;
+      background-color: #1c1c1c;
+      color: #fff;
+      font-size: 1em;
+      outline: none;
+      box-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
+      transition: box-shadow 0.3s;
+    }
 
-  .hamburger {
-    font-size: 24px;
-    cursor: pointer;
-    margin-right: 15px;
-  }
+    .search-box:focus {
+      box-shadow: 0 0 20px rgba(229, 9, 20, 0.7);
+    }
 
-  .sitename {
-    font-size: 18px;
-    font-weight: bold;
-  }
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 25px;
+      padding: 20px 40px;
+    }
 
-  .menu {
-    display: none;
-    position: absolute;
-    top: 50px;
-    left: 10px;
-    background: #1e1e1e;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    min-width: 200px;
-    overflow: hidden;
-    z-index: 999;
-  }
+    .movie-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
 
-  .menu a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: #e0e0e0;
-  }
+    .movie-card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(229, 9, 20, 0.5);
+    }
 
-  .menu a:hover {
-    background: #0072ff;
-    color: #fff;
-  }
+    .movie-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
 
-  /* Intro */
-  .intro {
-    text-align: center;
-    padding: 30px;
-    font-size: 16px;
-    color: #ccc;
-  }
+    .movie-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      padding: 15px;
+      color: #fff;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
 
-  /* Section Title */
-  .section-title {
-    font-size: 22px;
-    font-weight: bold;
-    margin: 20px 40px 10px;
-  }
+    .movie-card:hover .movie-info {
+      opacity: 1;
+    }
 
-  /* Movie Row (Netflix Style) */
-  .movie-row {
-    display: flex;
-    overflow-x: auto;
-    padding: 20px 40px;
-    gap: 20px;
-    scroll-behavior: smooth;
-  }
+    .movie-info h3 {
+      margin: 0;
+      font-size: 1.1em;
+      color: #e50914;
+    }
 
-  .movie-card {
-    position: relative;
-    min-width: 200px;
-    height: 300px;
-    background-color: #222;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
+    .movie-info p {
+      margin-top: 5px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
 
-  .movie-card:hover {
-    transform: scale(1.08);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
-  }
-
-  .movie-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* Hover overlay */
-  .overlay {
-    position: absolute;
-    bottom: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.85));
-    width: 100%;
-    color: #fff;
-    padding: 10px;
-    transition: all 0.3s;
-  }
-
-  .overlay h3 {
-    margin: 5px 0;
-    font-size: 16px;
-  }
-
-  .overlay button {
-    background: linear-gradient(45deg, #00c6ff, #0072ff);
-    border: none;
-    color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: bold;
-  }
-
-  .overlay button:hover {
-    background: linear-gradient(45deg, #0072ff, #00c6ff);
-  }
-
-  /* Footer */
-  .footer {
-    text-align: center;
-    padding: 15px;
-    font-size: 14px;
-    background: #000;
-    margin-top: 40px;
-  }
-
-  /* Scrollbar style */
-  ::-webkit-scrollbar {
-    height: 8px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #0072ff;
-    border-radius: 4px;
-  }
-  body {
-  background-image: url('bg.jpeg'); /* Replace with your image path */
-  background-repeat: no-repeat; /* Prevent repeating the image */
-  background-size: cover;      /* Cover the entire background area */
-  background-position: center; /* Center the image */
-}
-
-</style>
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links {
+        margin-top: 10px;
+      }
+      .movie-card img {
+        height: 250px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-  <!-- Top bar -->
-  <div class="topbar">
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
-    <div class="sitename">Electro Gang Community ®</div>
+  <header>
+    <div class="logo">ELECTRO GANG COMMUNITY</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="exclusive.html">Exclusive</a>
+      <a href="leaderboard.html">Leaderboard</a>
+      <a href="profile.html">Profile</a>
+    </div>
+  </header>
+
+  <div class="search-container">
+    <input type="text" id="searchBox" class="search-box" placeholder="Search for a movie...">
   </div>
 
-  <!-- Hamburger Menu -->
-  <div class="menu" id="menu">
-    <a href="index.html">Home</a>
-    <a href="login.html">Sign Up / Log In</a>
-    <a href="profile.html">Profile</a>
-    <a href="exclusive.html">Exclusive Content</a>
-    <a href="games.html">Games</a>
-    <a href="songs.html">Songs</a>
-    <a href="leaderboard.html">Leaderboard</a>
-    <a href="pro.html">Get Pro!</a>
-  </div>
-
-  <!-- Intro -->
-  <div class="intro">
-    <h2>Electro Gang Exclusive Content!</h2>
-    <p><h3>Welcome to a totally different section of the website!  
-    Here you’ll find A lot of Films & Series to Watch!</h3></p>
-  </div>
-
-  <!-- MOVIES SECTION -->
-  <h2 class="section-title">🎬Featured Series</h2>
-  <div class="movie-row">
-  
-    <div class="movie-card">
-     <a href="electrogang.html" target="_blank"><img src="eegg.png" ></a>
-      <div class="overlay">
+  <div class="movie-grid" id="movieGrid">
+    <div class="movie-card" onclick="location.href='electrogang.html'">
+      <img src="eegg.png" alt="Electro Gang Movie">
+      <div class="movie-info">
         <h3>Electro Gang : Season 1</h3>
-       
+       <mark> <p style="color:white">Chaos spreads through our peaceful world...</p></mark>
       </div>
     </div>
-  </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    © 2025 Electro Gang Community. All Rights Reserved.
-  </div>
 
   <script>
-    function toggleMenu() {
-      let menu = document.getElementById("menu");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-    }
+    const searchBox = document.getElementById("searchBox");
+    const movieGrid = document.getElementById("movieGrid");
+    const movieCards = movieGrid.getElementsByClassName("movie-card");
 
-    function playMovie(movieName) {
-      alert("Now playing: " + movieName);
-      // Here you can later redirect to movie player page or modal
-    }
+    searchBox.addEventListener("input", () => {
+      const filter = searchBox.value.toLowerCase();
+      Array.from(movieCards).forEach(card => {
+        const title = card.querySelector("h3").textContent.toLowerCase();
+        card.style.display = title.includes(filter) ? "" : "none";
+      });
+    });
   </script>
+
 </body>
 </html>
