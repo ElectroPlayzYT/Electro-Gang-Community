@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Buy Items</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="Electro Gang Community - Minecraft texture packs, gaming videos, mod downloads, news and fan discussions.">
+<meta name="keywords" content="Electro Gang, Minecraft episodes, Leaderboard, fan community">
+<meta name="author" content="Electro Playz">
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background-color:#121212;
+color:#e0e0e0;
+text-align:center;
+background-image:url('mcbg.jpeg.webp');
+background-repeat:no-repeat;
+background-size:cover;
+background-position:center;
+}
+
+/* Purchase Box */
+
+.box{
+background:#1e1e1e;
+padding:20px;
+border-radius:10px;
+width:320px;
+margin:auto;
+margin-top:40px;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:6px;
+border:none;
+}
+
+button{
+background:#00c6ff;
+border:none;
+padding:12px;
+border-radius:20px;
+color:white;
+font-weight:bold;
+cursor:pointer;
+width:100%;
+}
+
+button:hover{
+background:#0072ff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Purchase Items 🎯</h1>
+
+<div class="box">
+
+<input type="text" id="mcuser" placeholder="Minecraft Username" required>
+
+<input type="tel" id="phone" placeholder="Phone Number" required>
+
+<input type="text" id="discord" placeholder="Discord Username">
+
+<select id="item">
+<option value="">--Select An Item--</option>
+<option>Netherite Sword - ₹9</option>	
+<option>Full Netherite Armour - ₹19</option>
+<option>Totem Of Undying - ₹5</option>
+<option>Elytra - ₹19</option>
+</select>
+
+<button onclick="sendOrder()">Submit Order</button>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAblev6Eozr521krNg5sRt-GLng0Pt1dRo",
+authDomain: "electro-playz-community.firebaseapp.com",
+databaseURL: "https://electro-playz-community-default-rtdb.firebaseio.com",
+projectId: "electro-playz-community",
+storageBucket: "electro-playz-community.firebasestorage.app",
+messagingSenderId: "630817725431",
+appId: "1:630817725431:web:05f83dbd2684f5c7a3ecf2",
+measurementId: "G-90WPKQKLD7"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+window.sendOrder = async function(){
+
+let user = document.getElementById("mcuser").value;
+let phone = document.getElementById("phone").value;
+let discord = document.getElementById("discord").value;
+let item = document.getElementById("item").value;
+
+if(user=="" || phone=="" || item==""){
+alert("Please fill all required fields.");
+return;
+}
+
+try{
+
+await push(ref(db,"orders"),{
+minecraft:user,
+phone:phone,
+discord:discord,
+item:item,
+time:new Date().toLocaleString()
+});
+
+alert("Order submitted successfully!");
+window.location.href="payment.html";
+
+}
+
+catch(error){
+alert("Error sending order: "+error);
+}
+
+}
+
+</script>
+
+</body>
+</html>
