@@ -17,7 +17,7 @@
 <style>
 
 body {
-  background-image: url('bg.jpeg'); /* Replace with your image path */
+  background-image: url('mcbg.jpg');
   background-repeat: no-repeat; /* Prevent repeating the image */
   background-size: cover;      /* Cover the entire background area */
   background-position: center; /* Center the image */
@@ -107,144 +107,128 @@ body {
       background: #000;
       margin-top: 40px;
     }
-	
-	.card {
-      width: 500px;         /* Card width */
-      height: 420px;        /* Card height */
-      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Background color/gradient */
-      border-radius: 20px;  /* Rounded corners */
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* Shadow effect */
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
-
-    /* Hover effect */
-    .card:hover {
-      transform: translateY(-10px) scale(1.05);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
-    }
-	
-	.card {
-      width: 500px;         /* Card width */
-      height: 420px;        /* Card height */
-      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Background color/gradient */
-      border-radius: 20px;  /* Rounded corners */
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* Shadow effect */
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
-
-    /* Hover effect */
-    .card:hover {
-      transform: translateY(-10px) scale(1.05);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
-    }
-	
-	
-	 /* Songs Section */
-    .songs-section {
-      padding: 40px 5%;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
-
-    .song-card {
-      background: rgba(0, 0, 0, 0.75);
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-      transition: transform 0.3s ease;
+	 .search-container {
       text-align: center;
+      margin: 30px auto;
     }
 
-    .song-card:hover {
-      transform: scale(1.05);
-    }
-
-    .song-cover {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
-
-    .song-info {
-      padding: 15px;
-    }
-
-    .song-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin: 10px 0 5px;
-    }
-
-    .song-artist {
-      font-size: 14px;
-      color: #aaa;
-      margin-bottom: 10px;
-    }
-
-    .btn {
-      background: linear-gradient(45deg, #00c6ff, #0072ff);
-      border: none;
-      color: white;
-      padding: 10px 20px;
+    .search-box {
+      width: 80%;
+      max-width: 500px;
+      padding: 10px 15px;
       border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
-
-    .btn:hover {
-      background: linear-gradient(45deg, #0072ff, #00c6ff);
-      transform: scale(1.05);
-    }
-
-    /* Audio player */
-    audio {
-      width: 100%;
-      margin-top: 10px;
+      border: none;
+      background-color: #1c1c1c;
+      color: #fff;
+      font-size: 1em;
       outline: none;
+      box-shadow: 0 0 10px rgba(229, 9, 20, 0.4);
+      transition: box-shadow 0.3s;
     }
 
-    /* Footer */
-    .footer {
-      text-align: center;
-      padding: 15px;
-      font-size: 14px;
-      background: #000;
-      margin-top: 40px;
+    .search-box:focus {
+      box-shadow: 0 0 20px rgba(229, 9, 20, 0.7);
     }
-  </style>
+	
+	.card {
+      width: 500px;         /* Card width */
+      height: 420px;        /* Card height */
+      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Background color/gradient */
+      border-radius: 20px;  /* Rounded corners */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* Shadow effect */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
 
-  <script>
+    /* Hover effect */
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    }
+	
+	.card {
+      width: 500px;         /* Card width */
+      height: 420px;        /* Card height */
+      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Background color/gradient */
+      border-radius: 20px;  /* Rounded corners */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* Shadow effect */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    /* Hover effect */
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    }
+	.search-box{
+margin:30px auto;
+width:300px;
+}
+
+.search-box input{
+width:100%;
+padding:12px;
+font-size:16px;
+border-radius:25px;
+border:none;
+outline:none;
+text-align:center;
+}
+
+.shop{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+padding:20px;
+}
+
+.item{
+background:#1e293b;
+padding:15px;
+border-radius:10px;
+width:180px;
+transition:0.2s;
+}
+
+.item:hover{
+transform:scale(1.05);
+}
+
+.item img{
+width:100%;
+border-radius:8px;
+}
+
+button{
+margin-top:10px;
+padding:8px 15px;
+border:none;
+border-radius:20px;
+background:#22c55e;
+color:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#16a34a;
+}
+
+	</style>
+	
+	 <script>
     function toggleMenu() {
       let menu = document.getElementById("menu");
       menu.style.display = menu.style.display === "block" ? "none" : "block";
     }
-
-    let currentAudio = null;
-
-    function playSong(id) {
-      const audio = document.getElementById(id);
-
-      // Pause currently playing audio if any
-      if (currentAudio && currentAudio !== audio) {
-        currentAudio.pause();
-      }
-
-      // Toggle play/pause
-      if (audio.paused) {
-        audio.play();
-        currentAudio = audio;
-      } else {
-        audio.pause();
-      }
-    }
   </script>
-</head>
-<body>
- <!-- Top bar -->
+  
+	</head>
+	
+	<body>
+	
+	 <!-- Top bar -->
   <div class="topbar">
     <div class="hamburger" onclick="toggleMenu()">☰</div>
     <div class="sitename">Electro Gang Community ®</div>
@@ -252,7 +236,7 @@ body {
 
   <!-- Hamburger dropdown -->
   <div class="menu" id="menu">
-    <a href="index.html">Home</a>
+  <a href="index.html">Home</a>
     <a href="login.html">Sign Up / Log In</a>
     <a href="profile.html">Profile</a>
     <a href="exclusive.html">Exclusive Content</a>
@@ -260,55 +244,101 @@ body {
     <a href="songs.html">Songs</a>
 	<a href="shop.html">Shop</a>
     <a href="leaderboard.html">Leaderboard</a>
-    <a href="pro.html">Get Pro!🔥</a>
+	<a href="pro.html">Get Pro!🔥</a>
   </div>
+  
+  <br><br><br>
+  <center><h1>Welcome To Shop!🔥</h1>
+  <h2>Here you will find a lot of paid stuff, however it is not too much expensive. You can use these items, ranks, kits, etc. in our public servers which we will make more in future! Enter your Minecraft Username and upi id, purchase, and you will get your items by honors!</h2>
+ <div class="search-box">
+<input type="text" id="search" placeholder="Search items..." onkeyup="searchItems()">
+</div><br><br>
+ <center> <center><a href="orderrank.html"><button class="btn">Buy Ranks</button></a></center><br>
+  <center> <center><a href="orderitem.html"><button class="btn">Buy Items</button></a></center><br>
+    <center> <center><a href="orderkits.html"><button class="btn">Buy Kits</button></a></center><br><br>
 
-  <!-- Songs Section -->
-  <section class="songs-section">
-    <div class="song-card">
-      <img src="photo-output.jpeg" alt="Song 1" class="song-cover">
-      <div class="song-info">
-        <div class="song-title">Electro Gang Da Minecraft Kamal</div>
-        <div class="song-artist">By Anpregh</div>
-        <button class="btn" onclick="playSong('audio1')">Play / Pause</button>
-        <audio id="audio1" src="electrogangkamal.mp3" controls></audio>
-      </div>
-    </div>
 
-    <div class="song-card">
-      <img src="egeg.png" alt="Song 2" class="song-cover">
-      <div class="song-info">
-        <div class="song-title">Electro Gang</div>
-        <div class="song-artist">By Electro Playz</div>
-        <button class="btn" onclick="playSong('audio2')">Play / Pause</button>
-        <audio id="audio2" src="egsong.mp4" controls></audio>
-      </div>
-    </div>
+<div class="shop" id="shop">
 
-    <div class="song-card">
-      <img src="legends.png" alt="Song 3" class="song-cover">
-      <div class="song-info">
-        <div class="song-title">The Legends</div>
-        <div class="song-artist">By Electro Playz</div>
-        <button class="btn" onclick="playSong('audio3')">Play / Pause</button>
-        <audio id="audio3" src="legends.mp3" controls></audio>
-      </div>
-    </div>
+<div class="item">
+<img src = "netheritesw2.png.png" height="160px" width="70px">
+<h3>Netherite Sword - ₹9</h3><br><br><br><br><br><br>
+<button onclick="location.href='orderitem.html'">Buy</button>
+</div>
 
- <div class="song-card">
-      <img src="aura.jpeg" alt="Song 4" class="song-cover">
-      <div class="song-info">
-        <div class="song-title">Aura</div>
-        <div class="song-artist">By Electro Playz</div>
-        <button class="btn" onclick="playSong('audio4')">Play / Pause</button>
-        <audio id="audio4" src="aura.mp3" controls></audio>
-      </div>
-    </div>
-   <br><br><br>
-  <!-- Footer -->
-  <div class="footer">
-    © 2025 Electro Gang Community. All rights reserved.
-  </div>
+<div class="item">
+<img src = "netheritear.webp" height="270px" width="1px">
+<h3>Full Netherite Armour - ₹19</h3>
+<button onclick="location.href='orderitem.html'">Buy</button>
+</div>
 
-</body>
-</html>
+<div class="item">
+<img src = "totem.png" height="160px" width="70px">
+<h3>Totem of Undying - ₹5</h3><br><br><br><br><br><br>
+<button onclick="location.href='orderitem.html'">Buy</button>
+</div>
+
+<div class="item">
+<img src = "elytra.webp" height="160px" width="70px">
+<h3>Elytra - ₹19</h3><br><br><br><br><br><br><br>
+<button onclick="location.href='orderitem.html'">Buy</button>
+</div>
+
+</div>
+
+<script>
+
+function searchItems() {
+
+let input = document.getElementById("search").value.toLowerCase();
+
+let items = document.getElementsByClassName("item");
+
+for(let i=0;i<items.length;i++){
+
+let name = items[i].getElementsByTagName("h3")[0].innerText.toLowerCase();
+
+if(name.includes(input)){
+items[i].style.display="block";
+}else{
+items[i].style.display="none";
+}
+
+}
+
+}
+
+</script>
+<br><br><br><hr><br><br>
+<h1>New To Site :</h1>
+  <!-- Empty card -->
+  <center><div class="card"><BR><br><br>
+ <h2></h2>
+ <h2>God Rank - ₹39</h2>
+  <center><a href="godrank.png"><img src="godrank.png" width="200px" height=170px></a></center><br>
+  <center> <center><a href="orderrank.html"><button class="btn">Buy</button></a></center><br><br>
+</div><br><br>
+ <!-- Empty card -->
+  <center><div class="card"><BR><br><br>
+ <h2></h2>
+ <h2>Supreme Rank - ₹59</h2>
+  <center><a href="godrank.png"><img src="supreme.png"  width="200px" height=170px></a></center><br>
+  <center> <center><a href="orderrank.html"><button class="btn">Buy</button></a></center><br><br>
+</div><br><br>
+<script>
+    const searchBox = document.getElementById("searchBox");
+    const movieGrid = document.getElementById("movieGrid");
+    const movieCards = movieGrid.getElementsByClassName("movie-card");
+
+    searchBox.addEventListener("input", () => {
+      const filter = searchBox.value.toLowerCase();
+      Array.from(movieCards).forEach(card => {
+        const title = card.querySelector("h3").textContent.toLowerCase();
+        card.style.display = title.includes(filter) ? "" : "none";
+      });
+    });
+  </script>
+
+
+
+</script>
